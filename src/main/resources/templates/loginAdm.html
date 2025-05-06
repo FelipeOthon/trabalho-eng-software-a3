@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"> <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/styleLogin.css}">
+    <link rel="icon" type="image/x-icon" th:href="@{/assets/icone.png}" /> <title>Login de Administradores</title>
+</head>
+<body>
+
+<div class="page">
+
+    <div class="container">
+        <div class="left">
+            <div class="login">
+                RVJK <span style="color: rgb(175, 41, 41);">Serviços</span> </div>
+            <div class="eula">
+                Área exclusiva para <span style="color: rgb(175, 41, 41);">administradores</span> acessarem os <span style="color: rgb(175, 41, 41);">Formulários Enviados.</span>
+            </div>
+        </div>
+
+        <form th:action="@{/login-admin-process}" method="post"> <div class="right">
+            <div class="form">
+                <label for="username">Usuário</label> <input type="text" name="username" id="username" autocomplete="off">
+                <label for="password">Senha</label>
+                <input type="password" name="password" id="password">
+
+                <div class="botao">
+                    <button type="submit" name="btn">LOGIN</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

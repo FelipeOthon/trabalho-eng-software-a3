@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>RVJK - Serviços</title>
+        <link rel="icon" type="image/x-icon" th:href="@{/assets/icone.png}" />
+        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+        <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#page-top">RVJK <span style="color: rgb(175, 41, 41);";>SERVIÇOS</span> </a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#about">Quem Somos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#projects">Missão/Valores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#signup">Contato</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/prestador/cadastrar}">Cadastre seu serviço</a></li>
+                        <li class="nav-item"><a class="nav-link" th:href="@{/demanda/cadastrar}">Cadastrar Pedido de Serviço</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+                <div class="d-flex justify-content-center">
+                    <div class="text-center">
+                        <h1 class="mx-auto my-0 text-uppercase">SERVIÇOS</h1>
+                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Estamos em Busca de Serviços Como o Seu</h2>
+                        <a class="btn btn-primary" th:href="@{/servicos/painel}">Painel prestadores</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section class="about-section text-center" id="about">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="text-white mb-4">Empresa Com o Objetivo de te Ajudar a Encontrar um Especialista</h2>
+                        <p class="text-white-50">
+                            Tem como objetivo te apresentar profissionais de qualidade. Sempre antenada às empresas que possam te atender da melhor forma. Você nos diz sua demanda e ela fica disponível para que prestadores de serviços entre em contato para te atender. 
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="projects-section bg-light" id="projects">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" th:src="@{/assets/img/imagem4.avif}" alt="..." /></div>
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="featured-text text-center text-lg-left">
+                            <h4>Missão</h4>
+                            <p class="text-black-50 mb-0">Apresentar prestadores de serviços para que possam atender a sua demanda.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+                    <div class="col-lg-6"><img class="img-fluid" th:src="@{/assets/img/imagem1.jpg}" alt="..." /></div>
+                    <div class="col-lg-6">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-left">
+                                    <h4 class="text-white">Visão</h4>
+                                    <p class="mb-0 text-white-50">Contar a nossa história para as pessoas.
+                                        Aumentar o nosso valor de marca.</p>
+                                    <hr class="d-none d-lg-block mb-0 ms-0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row gx-0 justify-content-center">
+                    <div class="col-lg-6"><img class="img-fluid" th:src="@{/assets/img/imagem2.jpg}" alt="..." /></div>
+                    <div class="col-lg-6 order-lg-first">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-right">
+                                    <h4 class="text-white">Valores</h4>
+                                    <p class="mb-0 text-white-50">Seja uma ótima pessoa e um ótimo profissional.
+                                        Seja ético mesmo quando estiver sozinho.
+                                        Assuma a responsabilidade.
+                                        Não aponte culpados, aponte a solução.
+                                    </p>
+                                    <hr class="d-none d-lg-block mb-0 me-0" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="contact-section bg-black" id="signup"> <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Endereço</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50">Av. Afonso Vaz de Melo, 485</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-envelope text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Email</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50"><a href="#!">rvjk@gmail.com</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Telefone</h4>
+                                <hr class="my-4 mx-auto" />
+                                <div class="small text-black-50">(31) 98387-1615</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social d-flex justify-content-center">
+                    <a class="mx-2" href="#!"><i class="fab fa-instagram"></i></a>
+                    <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
+                    <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </section>
+        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Raphael/Vinicius/Jéssica/Kelly</div></footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <script th:src="@{/js/scripts.js}"></script>
+
+        </body>
+</html>
