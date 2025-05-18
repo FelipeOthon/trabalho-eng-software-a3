@@ -2,19 +2,24 @@ package com.exemplo.trabalho.repository;
 
 import com.exemplo.trabalho.model.Servico;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query; // Certifique-se que este import existe
 import org.springframework.stereotype.Repository;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public interface ServicoRepository extends JpaRepository<Servico, Long> { // ID_Servico (Long) é a PK
+public interface ServicoRepository extends JpaRepository<Servico, Long> {
 
-    // Buscar serviços de um prestador específico pelo CPF do prestador
     List<Servico> findByPrestadorCpf(String cpf);
 
-    // Buscar serviços de uma categoria específica pelo ID da categoria
     List<Servico> findByCategoriaIdCategoria(Integer idCategoria);
 
-    // Exemplo: Buscar serviços cuja descrição contenha um termo (ignorando maiúsculas/minúsculas)
-    // List<Servico> findByDescricaoContainingIgnoreCase(String termo);
+    // Este é o método para buscar todos os serviços com prestador e categoria carregados
+    // Certifique-se de que ele NÃO tem parâmetros se a query JPQL não os usa.
+    @Query("SELECT s FROM Servico s LEFT JOIN FETCH s.prestador p LEFT JOIN FETCH s.categoria c")
+    List<Servico> findAllWithPrestadorAndCategoria(); // << SEM PARÂMETRO INTEGER AQUI
+
+    // Se você tinha uma versão deste método com um parâmetro Integer, remova ou corrija-a.
+    // Exemplo de como seria SE você quisesse filtrar por ID de categoria com JOIN FETCH:
+    // @Query("SELECT s FROM Servico s LEFT JOIN FETCH s.prestador p LEFT JOIN FETCH s.categoria c WHERE c.idCategoria = :idCategoria")
+    // List<Servico> findAllWithPrestadorAndCategoriaByCategoriaId(@Param("idCategoria") Integer idCategoria);
 }

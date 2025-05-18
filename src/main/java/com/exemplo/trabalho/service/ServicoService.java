@@ -26,7 +26,7 @@ public class ServicoService {
     }
 
     public List<Servico> listarTodos() {
-        return servicoRepository.findAll();
+        return servicoRepository.findAllWithPrestadorAndCategoria();
     }
 
     public Optional<Servico> buscarPorId(Long id) {
