@@ -59,7 +59,7 @@ public class PrestadorApiController {
             @RequestParam(value = "anexo", required = false) MultipartFile anexo // "Anexo" no form HTML original
     ) {
         try {
-            // ---> ADICIONE ESTA VALIDAÇÃO <---
+            // ---> Validação da IdCategoria <---
             if (idCategoria == null) {
                 return ResponseEntity.badRequest().body(Map.of("error", "A seleção de uma categoria é obrigatória."));
             }
