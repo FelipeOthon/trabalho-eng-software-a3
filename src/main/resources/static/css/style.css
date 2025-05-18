@@ -1,0 +1,206 @@
+
+.formulario{
+    padding-top: 6rem;
+    padding-bottom: 5rem;
+  }
+  
+  .form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 2rem; /* Menos padding para telas menores */
+    border-top: 3px solid #b1b1b4; /* Adiciona uma linha entre a imagem e o formulário */
+  }
+  
+  .form-header {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .title h1 {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 600;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem 0;
+  }
+  
+  .input-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    width: 48%; /* Reduz a largura para permitir flexibilidade */
+  }
+  
+  .input-box input,
+  .input-box select,
+  .input-box textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+  }
+  
+  .input-box input:focus,
+  .input-box select:focus,
+  .input-box textarea:focus {
+    border-color: #b1b1b4;
+  }
+  
+  .input-box input::placeholder,
+  .input-box select::placeholder {
+    color: #999;
+  }
+  
+  .input-box label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .continue-button button {
+    width: 100%;
+    margin-top: 2rem;
+    border: none;
+    background-color: rgb(175, 41, 41);
+    padding: 0.75rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .continue-button button:hover {
+    background-color: rgb(193 78 78);
+  }
+  
+  .continue-button button a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .form-group {
+    width: 100%;
+    margin-bottom: 1.2rem;
+  }
+  
+  /* Responsividade */
+  @media screen and (max-width: 1330px) {
+    .form-image {
+        display: none;
+    }
+  
+    .container {
+        flex-direction: column;
+    }
+  
+    .form {
+        width: 100%;
+        padding: 1.5rem;
+    }
+  
+    .input-group {
+        flex-direction: column;
+        justify-content: center;
+        padding: 0;
+    }
+  
+    .input-box {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+  
+    .input-box input,
+    .input-box select,
+    .input-box textarea {
+        font-size: 0.9rem;
+    }
+  
+    .continue-button button {
+        font-size: 1rem;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .form-image {
+        height: 30vh;
+    }
+  
+    .form-header h1 {
+        font-size: 1.2rem;
+    }
+  
+    .input-box input,
+    .input-box select,
+    .input-box textarea {
+        padding: 0.7rem;
+        font-size: 0.85rem;
+    }
+  
+    .continue-button button {
+        padding: 0.8rem;
+    }
+  }
+  
+  .form-group {
+    width: 100%;
+    margin-bottom: 1.5rem; /* Mais espaçamento entre os campos */
+  }
+  
+  textarea {
+    width: 100%;
+    padding: 1rem; /* Maior espaço interno para maior conforto ao digitar */
+    border: 1px solid #a39999; /* Cor da borda */
+    background-color: #ffffffc0; /* Cor de fundo suave */
+    color: #333; /* Cor do texto */
+    border-radius: 5px;
+    font-size: 1rem; /* Tamanho de fonte maior */
+    resize: vertical; /* Permite redimensionar a altura do campo */
+    min-height: 150px; /* Altura mínima para melhorar a experiência */
+    box-shadow: 1px 1px 6px #0000001c; /* Sombra suave */
+    transition: all 0.3s ease;
+  }
+  
+  textarea:focus {
+    border-color: #b1b1b4;
+    background-color: #f4f4f4;
+  }
+  
+  textarea::placeholder {
+    color: #777; /* Cor de placeholder mais suave */
+  }
+  
+  /* Responsividade para telas menores */
+  @media screen and (max-width: 768px) {
+    .input-box label {
+        font-size: 1rem;
+    }
+  
+    textarea {
+        font-size: 0.95rem; /* Ajuste o tamanho da fonte para telas pequenas */
+        padding: 0.9rem; /* Ajuste o padding */
+        min-height: 120px; /* Ajuste da altura mínima para telas pequenas */
+    }
+  }
+  
+  body{
+    background-color: #c0c0c0;;
+  }
