@@ -38,25 +38,27 @@ function exibirServicos(servicos) {
         console.error('Elemento #listaDeServicos não encontrado no DOM.');
         return;
     }
-    listaDeServicos.innerHTML = ''; // Limpa a lista antes de popular com novos cartões
+    listaDeServicos.innerHTML = '';
 
     if (!servicos || servicos.length === 0) {
         listaDeServicos.innerHTML = '<p>Nenhum serviço encontrado no momento.</p>';
         return;
     }
 
-    servicos.forEach(servico => { // 'servico' aqui é um objeto ServicoPainelDTO
-        const cartao = document.createElement('div');
-        cartao.className = 'cartaoDeServico'; // Classe para estilização do cartão
+    console.log("Dados recebidos da API para exibirServicos:", servicos); // Mantenha para debug
 
-        // Monta o HTML interno do cartão com os dados do serviço
-        // Usamos 'N/A' como fallback se algum campo estiver faltando
+    servicos.forEach(servico => {
+        console.log("Processando DTO de serviço para exibir:", servico); // Mantenha para debug
+        const cartao = document.createElement('div');
+        cartao.className = 'cartaoDeServico';
+
+        // Use os nomes de campo camelCase que vêm do DTO
         cartao.innerHTML = `
-             <h2>${servico.descricao || 'Descrição não disponível'}</h2> 
+            <h2>${servico.descricao || 'Descrição não disponível'}</h2> 
             <p><strong>Prestador:</strong> ${servico.nomePrestador || (servico.emailPrestador || 'Não informado')}</p> 
             <p><strong>Email:</strong> ${servico.emailPrestador || 'Não informado'}</p>
             <p><strong>Categoria:</strong> ${servico.nomeCategoria || 'Não informada'}</p>
-            <p><strong>Detalhes:</strong> ${servico.infoComplementares || 'Sem detalhes adicionais'}</p>
+            <p class="detalhes-texto"><strong>Detalhes:</strong> ${servico.infoComplementares || 'Sem detalhes adicionais'}</p>
         `;
         listaDeServicos.appendChild(cartao);
     });

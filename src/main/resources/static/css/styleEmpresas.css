@@ -1,7 +1,8 @@
+/* Em: src/main/resources/static/css/styleEmpresas.css */
+
 body {
     background-color: #c0c0c0;
 }
-
 
 h1 {
     font-size: 1.5rem;
@@ -17,28 +18,31 @@ h1 {
 .barraDeFiltro {
     display: flex;
     justify-content: space-between;
+    align-items: center; /* Alinha verticalmente o input e o select */
     margin-bottom: 1.5rem;
+    gap: 0.5rem; /* Adiciona um espaço entre os itens da barra de filtro */
 }
 
-input[type="text"], select {
-    padding: 0.75rem; /* Mantendo o padding para deixar a barra mais alta */
+input[type="text"]#barraDePesquisa { /* Tornando o seletor mais específico */
+    flex-grow: 1; /* Permite que a barra de pesquisa cresça para preencher o espaço */
+    /* Removido width: 100% e max-width: none para permitir que flex-grow funcione melhor com o select */
+    padding: 0.75rem;
     border: 1px solid #cbd5e0;
     border-radius: 0.375rem;
     outline: none;
-    width: 100%; /* Faz com que ocupem 100% do espaço disponível */
-    max-width: none; /* Remove a largura máxima para preencher o espaço */
 }
 
-input[type="text"] {
-    flex: 1; /* Faz a barra de pesquisa ocupar todo o espaço restante */
-    margin-right: 0; /* Remove a margem entre a barra de pesquisa e o select */
+select#filtroCategoria {
+    padding: 0.75rem;
+    border: 1px solid #cbd5e0;
+    border-radius: 0.375rem;
+    outline: none;
+    min-width: 200px; /* Largura mínima para o select */
+    /* width: auto;  Pode ser removido se min-width for suficiente */
 }
 
-select {
-    width: auto; /* Permite que o select tenha largura automática */
-}
-
-input[type="text"]:focus, select:focus {
+input[type="text"]#barraDePesquisa:focus,
+select#filtroCategoria:focus {
     border-color: #48bb78;
 }
 
@@ -53,17 +57,55 @@ input[type="text"]:focus, select:focus {
     padding: 1.5rem;
     border-radius: 0.5rem;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* IMPORTANTE: Esconde o conteúdo que transborda do cartão */
+    display: flex; /* Para melhor controle do conteúdo interno, se necessário */
+    flex-direction: column; /* Para empilhar os elementos internos */
+}
+
+.cartaoDeServico h2,
+.cartaoDeServico p {
+    /* Propriedades para quebra de linha e palavra */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal; /* Garante que o texto quebre em múltiplas linhas */
+    margin-bottom: 0.5em; /* Espaçamento padrão abaixo dos parágrafos e título */
 }
 
 .cartaoDeServico h2 {
     font-size: 1.25rem;
     color: #4a5568;
+    font-weight: 600; /* Títulos geralmente são mais pesados */
+
+    /* Para limitar a 2 linhas com "..." (elipse) */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Número de linhas a exibir */
+    -webkit-box-orient: vertical;
+    overflow: hidden; /* Necessário para -webkit-line-clamp e text-overflow */
+    text-overflow: ellipsis; /* Adiciona "..." no final */
+    /* Pode ser necessário ajustar line-height e uma altura/max-altura para consistência entre navegadores */
+    line-height: 1.3em; /* Ajuste conforme o tamanho da fonte */
+    max-height: calc(1.3em * 2); /* line-height * número de linhas */
 }
 
 .cartaoDeServico p {
+    font-size: 0.9rem; /* Um pouco menor para diferenciar do título */
     color: #718096;
+    line-height: 1.5; /* Melhor espaçamento entre linhas para parágrafos */
 }
 
+/* Classe específica para o campo "Detalhes" para aplicar um limite de linhas diferente */
+.cartaoDeServico p.detalhes-texto { /* Assumindo que você adicionará esta classe no JS */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Exibir até 3 linhas para os detalhes */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4em; /* Ajuste conforme o tamanho da fonte */
+    max-height: calc(1.4em * 3); /* line-height * número de linhas */
+}
+
+
+/* ... (seu CSS para botões e modal pode continuar aqui) ... */
 .botaoDetalhes {
     margin-top: 1rem;
     background-color: #e0361f;
@@ -73,28 +115,14 @@ input[type="text"]:focus, select:focus {
     border-radius: 0.375rem;
     cursor: pointer;
     transition: background-color 0.2s;
+    align-self: flex-start; /* Para alinhar o botão à esquerda se o cartão for flex */
 }
 
 .botaoDetalhes:hover {
-    background-color: #e0361f;
+    background-color: #c52d19; /* Cor do hover um pouco diferente */
 }
 
-.botaoCadastro {
-    display: inline-block;
-    margin-top: 0.5rem;
-    background-color: #e0361f;
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 0.375rem;
-    text-decoration: none; /* Remove underline */
-    transition: background-color 0.2s;
-}
-
-.botaoCadastro:hover {
-    background-color: #63b3ed;
-}
-
+/* Modal e outros estilos permanecem como você tinha */
 .modal {
     position: fixed;
     top: 0;
@@ -102,10 +130,10 @@ input[type="text"]:focus, select:focus {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
+    display: none; /* Começa escondido, JS muda para 'flex' ou 'block' */
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Coloca o modal acima do conteúdo */
+    z-index: 1000;
 }
 
 .conteudoModal {
