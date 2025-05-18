@@ -4,26 +4,26 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Prestador")
+@Table(name = "prestador") // Minúsculo
 public class Prestador {
 
     @Id
-    @Column(name = "CPF", length = 14, unique = true, nullable = false)
+    @Column(name = "cpf", length = 14, unique = true, nullable = false) // Minúsculo
     private String cpf;
 
-    @Column(name = "Senha", nullable = false, length = 255)
+    @Column(name = "senha", nullable = false, length = 255) // Minúsculo
     private String senha;
 
-    @Column(name = "Nome", nullable = false, length = 200)
+    @Column(name = "nome", nullable = false, length = 200) // Minúsculo
     private String nome;
 
-    @Column(name = "Email", nullable = false, unique = true, length = 150)
+    @Column(name = "email", nullable = false, unique = true, length = 150) // Minúsculo
     private String email;
 
-    @Column(name = "Endereco", length = 255)
+    @Column(name = "endereco", length = 255) // Minúsculo
     private String endereco;
 
-    @Column(name = "Telefone", length = 20)
+    @Column(name = "telefone", length = 20) // Minúsculo
     private String telefone;
 
     @OneToMany(mappedBy = "prestador", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
