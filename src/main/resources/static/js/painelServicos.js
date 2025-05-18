@@ -52,13 +52,13 @@ function exibirServicos(servicos) {
         // Monta o HTML interno do cartão com os dados do serviço
         // Usamos 'N/A' como fallback se algum campo estiver faltando
         cartao.innerHTML = `
-            <h2>${servico.Descricao || 'Descrição não disponível'}</h2> 
-            <p><strong>Prestador:</strong> ${servico.NomePrestador || (servico.Email || 'Não informado')}</p> 
-            <p><strong>Email:</strong> ${servico.Email || 'Não informado'}</p>
-            <p><strong>Categoria:</strong> ${servico.NomeCategoria || 'Não informada'}</p>
-            <p><strong>Detalhes:</strong> ${servico.InfoComplementares || 'Sem detalhes adicionais'}</p>
-            `;
-        listaDeServicos.appendChild(cartao); // Adiciona o cartão à lista na página
+             <h2>${servico.descricao || 'Descrição não disponível'}</h2> 
+            <p><strong>Prestador:</strong> ${servico.nomePrestador || (servico.emailPrestador || 'Não informado')}</p> 
+            <p><strong>Email:</strong> ${servico.emailPrestador || 'Não informado'}</p>
+            <p><strong>Categoria:</strong> ${servico.nomeCategoria || 'Não informada'}</p>
+            <p><strong>Detalhes:</strong> ${servico.infoComplementares || 'Sem detalhes adicionais'}</p>
+        `;
+        listaDeServicos.appendChild(cartao);
     });
 }
 
