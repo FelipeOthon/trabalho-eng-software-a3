@@ -41,13 +41,14 @@ public class PrestadorService {
             String descricaoServico, String infoComplementaresServico, Integer idCategoria, byte[] anexoServico) {
 
         // 1. Validar se o prestador já existe (pelo CPF ou email)
+        //COMENTAR ESSAS LINHAS PARA GERAR ERRO
         if (prestadorRepository.existsById(cpf)) {
             throw new IllegalArgumentException("Já existe um prestador cadastrado com este CPF.");
         }
         if (prestadorRepository.findByEmail(email).isPresent()) {
             throw new IllegalArgumentException("Este email já está em uso por outro prestador.");
         }
-
+        // COMENTAR ATÉ AQUI
         // 2. Buscar a Categoria
         Categoria categoria = categoriaRepository.findById(idCategoria)
                 .orElseThrow(() -> new IllegalArgumentException("Categoria não encontrada com o ID: " + idCategoria));
