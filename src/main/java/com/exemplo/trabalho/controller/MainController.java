@@ -1,26 +1,35 @@
 package com.exemplo.trabalho.controller;
 
-import com.exemplo.trabalho.model.Usuario; // Adicionado para o modelo Usuario
-import com.exemplo.trabalho.service.UsuarioService; // Adicionado para o serviço de Usuario
-import jakarta.servlet.http.HttpSession; // Adicionado para gerenciamento de sessão HTTP
+import com.exemplo.trabalho.model.Requisicao;
+import com.exemplo.trabalho.model.Servico;
+import com.exemplo.trabalho.model.Usuario;
+import com.exemplo.trabalho.service.RequisicaoService;
+import com.exemplo.trabalho.service.ServicoService;
+import com.exemplo.trabalho.service.UsuarioService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model; // Mantido para passar dados para a view
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping; // Adicionado para o processamento do formulário de login
-import org.springframework.web.bind.annotation.RequestParam; // Adicionado para capturar parâmetros do formulário
-// import org.springframework.ui.Model; // Se precisar passar dados para o Thymeleaf
+import org.springframework.web.bind.annotation.PathVariable; // ADICIONADO para capturar o ID da URL
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes; // ADICIONADO para mensagens flash
 
-import java.util.Optional; // Adicionado para lidar com o resultado de busca do usuário
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MainController {
 
-    // Injeção de dependência para o UsuarioService
-    // Garanta que a classe UsuarioService esteja anotada com @Service
-    // e que UsuarioRepository esteja anotado com @Repository.
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private ServicoService servicoService;
+
+    @Autowired
+    private RequisicaoService requisicaoService;
 
     @GetMapping("/")
     public String index() {
@@ -47,84 +56,93 @@ public class MainController {
         return "indexEmpresas";
     }
 
-    // Rota para exibir a página de login do administrador
     @GetMapping("/login-admin")
     public String loginAdminPage() {
         return "loginAdm";
     }
 
-    // --- INÍCIO DAS NOVAS ROTAS E LÓGICA PARA ADMIN ---
-
-    // Rota para processar a submissão do formulário de login do administrador
     @PostMapping("/login-admin-process")
     public String processLoginAdmin(@RequestParam String username,
                                     @RequestParam String password,
-                                    HttpSession session, // Para gerenciar a sessão do usuário
-                                    Model model) {      // Para enviar mensagens de erro de volta para a view
-
+                                    HttpSession session,
+                                    Model model) {
         Optional<Usuario> usuarioOptional = usuarioService.buscarPorUsername(username);
-
         if (usuarioOptional.isPresent()) {
             Usuario usuario = usuarioOptional.get();
-
-            // ATENÇÃO: Comparação de senha em texto plano.
-            // Esta é uma GRANDE FALHA DE SEGURANÇA e só deve ser usada para fins de teste MUITO iniciais.
-            // Em um sistema real, você DEVE usar Spring Security para hashear senhas no cadastro
-            // e comparar o hash da senha fornecida com o hash armazenado.
-            if (usuario.getPassword().equals(password)) { // Senha correta (para este exemplo simplificado)
-
-                // Verifica se o usuário tem a role de admin
-                // Certifique-se de que o valor "ROLE_ADMIN" é o que você usará no banco de dados.
+            // ATENÇÃO: Comparação de senha em texto plano (temporário, se você pulou o passo de segurança).
+            if (usuario.getPassword().equals(password)) {
                 if ("ROLE_ADMIN".equalsIgnoreCase(usuario.getRoles())) {
-                    session.setAttribute("adminLogado", usuario); // Armazena o objeto Usuario na sessão
-                    session.setAttribute("username", usuario.getUsername()); // Facilita o acesso ao nome do usuário no Thymeleaf
-                    return "redirect:/admin/dashboard"; // Redireciona para o dashboard do admin
+                    session.setAttribute("adminLogado", usuario);
+                    session.setAttribute("username", usuario.getUsername());
+                    return "redirect:/admin/dashboard";
                 } else {
-                    // Usuário autenticado, mas não tem permissão de administrador
                     model.addAttribute("error", "Acesso negado. Você não possui permissões de administrador.");
-                    return "loginAdm"; // Volta para a página de login com mensagem de erro
+                    return "loginAdm";
                 }
             }
         }
-
-        // Usuário não encontrado ou senha incorreta
         model.addAttribute("error", "Usuário ou senha inválidos.");
-        return "loginAdm"; // Volta para a página de login com mensagem de erro
+        return "loginAdm";
     }
 
-    // Rota para exibir o dashboard do administrador
     @GetMapping("/admin/dashboard")
     public String adminDashboard(HttpSession session, Model model) {
         Usuario adminLogado = (Usuario) session.getAttribute("adminLogado");
 
-        // Proteção básica da rota: verifica se o usuário está na sessão e tem a role correta
         if (adminLogado == null || !"ROLE_ADMIN".equalsIgnoreCase(adminLogado.getRoles())) {
-            // Se não estiver logado como admin, ou se a sessão expirou, redireciona para o login
             return "redirect:/login-admin";
         }
 
-        // Passa o nome do usuário (ou o objeto usuário inteiro) para ser exibido na página do dashboard
         model.addAttribute("username", adminLogado.getUsername());
-        // model.addAttribute("adminUser", adminLogado); // Alternativa para passar o objeto inteiro
 
-        // TODO (Próximos Passos):
-        // Aqui você adicionaria a lógica para buscar os dados que o admin precisa ver:
-        // Ex: List<Servico> todosServicos = servicoService.listarTodos();
-        // Ex: List<Requisicao> todasRequisicoes = requisicaoService.listarTodasRequisicoes();
-        // model.addAttribute("todosServicos", todosServicos);
-        // model.addAttribute("todasRequisicoes", todasRequisicoes);
+        List<Servico> todosServicos = servicoService.listarTodos();
+        List<Requisicao> todasRequisicoes = requisicaoService.listarTodasRequisicoes();
 
-        return "adminDashboard"; // Nome do arquivo HTML do painel do administrador (src/main/resources/templates/adminDashboard.html)
+        System.out.println("--- DEBUG MainController: adminDashboard ---");
+        System.out.println("Número de SERVIÇOS encontrados: " + (todosServicos != null ? todosServicos.size() : "null"));
+        System.out.println("Número de DEMANDAS encontradas: " + (todasRequisicoes != null ? todasRequisicoes.size() : "null"));
+        if (todasRequisicoes != null && !todasRequisicoes.isEmpty()) {
+            System.out.println("Primeira demanda (ID): " + todasRequisicoes.get(0).getIdRequisicao() + ", Descrição: " + todasRequisicoes.get(0).getDescricao());
+        } else if (todasRequisicoes != null) {
+            System.out.println("Lista de demandas está vazia.");
+        } else {
+            System.out.println("Lista de demandas é nula.");
+        }
+        System.out.println("------------------------------------------");
+
+        model.addAttribute("listaServicos", todosServicos);
+        model.addAttribute("listaDemandas", todasRequisicoes);
+
+        return "adminDashboard";
     }
 
-    // Rota para realizar o logout do administrador
+    // NOVO MÉTODO PARA DELETAR SERVIÇO
+    @GetMapping("/admin/servicos/deletar/{idServico}")
+    public String deletarServico(@PathVariable Long idServico, HttpSession session, RedirectAttributes redirectAttributes) {
+        Usuario adminLogado = (Usuario) session.getAttribute("adminLogado");
+        if (adminLogado == null || !"ROLE_ADMIN".equalsIgnoreCase(adminLogado.getRoles())) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Acesso não autorizado.");
+            return "redirect:/login-admin";
+        }
+
+        try {
+            servicoService.deletarServico(idServico);
+            redirectAttributes.addFlashAttribute("successMessage", "Serviço ID " + idServico + " deletado com sucesso!");
+        } catch (Exception e) {
+            // Você pode querer logar a exceção completa no console do servidor
+            // e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "Erro ao deletar serviço ID " + idServico + ".");
+            System.err.println("Erro ao deletar serviço ID " + idServico + ": " + e.getMessage());
+        }
+        return "redirect:/admin/dashboard";
+    }
+    // FIM DO NOVO MÉTODO
+
     @GetMapping("/admin/logout")
     public String adminLogout(HttpSession session) {
-        session.removeAttribute("adminLogado"); // Remove o atributo específico da sessão
-        session.removeAttribute("username");    // Remove o username também, se você o adicionou
-        session.invalidate();                   // Invalida a sessão HTTP inteira, removendo todos os atributos
-        return "redirect:/login-admin?logout"; // Redireciona para a página de login, o "?logout" é opcional (pode ser usado para exibir uma msg de logout bem-sucedido)
+        session.removeAttribute("adminLogado");
+        session.removeAttribute("username");
+        session.invalidate();
+        return "redirect:/login-admin?logout";
     }
-
-    // --- FIM DAS NOVAS ROTAS E LÓGICA PARA ADMIN ---
 }

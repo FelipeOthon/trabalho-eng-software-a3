@@ -73,11 +73,12 @@
             <div class="input-box">
                 <label for="nome">Nome</label>
                 <input id="nome" type="text" name="nome" placeholder="Digite seu nome" required>
+                <small id="nomeErrorMessage" class="field-error-message"></small>
             </div>
 
             <div class="input-box">
                 <label for="cpf">CPF</label>
-                <input id="cpf" type="text" name="cpf" placeholder="Digite seu CPF" required>
+                <input id="cpf" type="text" name="cpf" placeholder="Digite seu CPF" required maxlength="14">
                 <small id="cpfErrorMessage" class="field-error-message"></small>
             </div>
 
@@ -89,18 +90,21 @@
 
             <div class="input-box">
                 <label for="celular">Celular</label>
-                <input id="celular" type="tel" name="celular" placeholder="(xx) xxxx-xxxx ou xxxxxxxxxxx" required>
-                <small id="celularErrorMessage" class="field-error-message"></small>  </div>
+                <input id="celular" type="tel" name="celular" placeholder="(XX) XXXXX-XXXX ou XXXXXXXXXXX" required maxlength="15">
+                <small id="celularErrorMessage" class="field-error-message"></small>
+            </div>
 
             <div class="input-box">
                 <label for="senha">Senha</label>
                 <input id="senha" type="password" name="senha" placeholder="Digite sua senha" required>
+                <small id="senhaErrorMessage" class="field-error-message"></small>
             </div>
 
             <div class="input-box">
                 <label for="endereco">CEP</label>
-                <input id="endereco" type="text" name="endereco" placeholder="Digite seu CEP (apenas números)" required>
-                <small id="enderecoErrorMessage" class="field-error-message"></small> </div>
+                <input id="endereco" type="text" name="endereco" placeholder="XXXXX-XXX" required maxlength="9">
+                <small id="enderecoErrorMessage" class="field-error-message"></small>
+            </div>
         </div>
 
         <div class="form-group">
@@ -125,11 +129,13 @@
         <div class="form-group">
             <label for="informacoesComplementares">Informações Complementares</label>
             <textarea id="informacoesComplementares" name="informacoesComplementares" required></textarea>
+            <small id="informacoesComplementaresErrorMessage" class="field-error-message"></small>
         </div>
 
         <div class="form-group">
             <label for="Anexo">Anexo</label>
             <input type="file" id="Anexo" name="anexo">
+            <small id="anexoErrorMessage" class="field-error-message"></small>
         </div>
 
         <div class="continue-button">
@@ -141,5 +147,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script th:src="@{/js/scripts.js}"></script>
-<script th:src="@{/js/formServico.js}"></script> </body>
+<script th:src="@{/js/formServico.js}"></script>
+</body>
 </html>
